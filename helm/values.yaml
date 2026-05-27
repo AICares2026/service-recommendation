@@ -1,0 +1,26 @@
+service:
+  name: recommendation
+image:
+  repository: 952893849914.dkr.ecr.us-east-1.amazonaws.com/aicares-application/recommendation
+containerPort: 9001
+resources:
+  limits:
+    memory: "500Mi"
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+env:
+  - name: RECOMMENDATION_PORT
+    value: "9001"
+  - name: PRODUCT_CATALOG_ADDR
+    value: "product-catalog:3550"
+  - name: FLAGD_HOST
+    value: "flagd"
+  - name: FLAGD_PORT
+    value: "8013"
+  - name: OTEL_SERVICE_NAME
+    value: "recommendation"
+  - name: OTEL_EXPORTER_OTLP_ENDPOINT
+    value: "http://otel-collector:4317"
+nodeSelector:
+  eks.amazonaws.com/nodegroup: graviton-workers
